@@ -1,0 +1,83 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
+sylius:
+    form:
+        catalog_promotion:
+            description: Περιγραφή
+            name: Ονομασία
+            priority: Προτεραιότητα
+            action:
+                fixed_discount: Σταθερή έκπτωση
+                percentage_discount: Ποσοστιαία έκπτωση
+            enabled: Ενεργό
+            end_date: Ημερομηνία λήξης
+            label: Ετικέτα
+            start_date: Ημερομηνία έναρξης
+            translations: Μεταφράσεις
+        promotion:
+            actions: Ενέργειες
+            add_action: Προσθήκη λειτουργίας
+            add_rule: Προσθήκη κανόνα
+            coupon_based: Βάση κουπονιού
+            description: Περιγραφή
+            ends_at: Τελειώνει σε
+            exclusive: Αποκλειστική
+            name: Ονομασία
+            priority: Προτεραιότητα
+            rules: Κανόνες
+            starts_at: Αρχίζει με
+            usage_limit: Όριο χρήσης
+            applies_to_discounted: Εφαρμόζεται σε είδη παραγγελίας που έχουν ήδη έκπτωση
+            applies_to_discounted_details: Με αυτή την επιλογή, η προσφορά καλαθιού θα εφαρμοστεί σε είδη παραγγελίας που έχουν ήδη έκπτωση από προσφορά(ές) καταλόγου.
+            label: Ετικέτα
+        promotion_action:
+            item_fixed_discount: Σταθερή έκπτωση αντικειμένου
+            item_percentage_discount: Ποσοστιαία έκπτωση αντικειμένου
+            order_fixed_discount: Σταθερή έκπτωση παραγγελίας
+            order_percentage_discount: Ποσοστιαία έκπτωση παραγγελίας
+            shipping_percentage_discount: Ποσοστιαία έκπτωση κόστους αποστολής
+            filters: Φίλτρα
+            fixed_discount_configuration:
+                amount: Ποσό
+            percentage_discount_configuration:
+                percentage: Ποσοστό
+            type: Τύπος
+        promotion_coupon:
+            expires_at: Λήγει στις
+            usage_limit: Όριο χρήσης
+        promotion_coupon_generator_instruction:
+            amount: Ποσό
+            code_length: Μήκος κωδικού
+            expires_at: Λήγει στις
+            prefix: Πρόθεμα
+            suffix: Επίθεμα
+            usage_limit: Όριο χρήσης
+        promotion_filter:
+            price_range: Εύρος τιμών φίλτρου
+        promotion_rule:
+            cart_quantity: Ποσότητα καλαθιού
+            contains_product: Περιέχει προϊόν
+            customer_group: Ομάδα πελατών
+            has_at_least_one_from_taxons: Έχει μία τουλάχιστον από τις ταξινομική μονάδα
+            item_total: Σύνολο αντικειμένων
+            nth_order: Νιοστή παραγγελία
+            shipping_country: Χώρα αποστολής
+            taxonomy: Ταξινομία
+            total_price_of_items_from_taxon: Συνολική τιμή στοιχείων ταξινομικής κατηγορίας
+            cart_quantity_configuration:
+                count: Πλήθος
+                equal: Ισούται με
+            contains_product_configuration:
+                exclude: Εξαιρούνται
+                variants: Προϊόντα
+            item_total_configuration:
+                amount: Ποσό
+            nth_order_configuration:
+                nth: Νιοστή
+            shipping_country_configuration:
+                country: Χώρα
+            taxonomy_configuration:
+                exclude: Εξαιρούνται
+                taxons: Ταξινομικές μονάδες
+            type: Τύπος

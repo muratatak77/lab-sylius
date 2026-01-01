@@ -1,0 +1,288 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
+sylius:
+    form:
+        block:
+            body: Κυρίως άρθρο
+            id: ID
+            title: Τίτλος
+        cart:
+            coupon: Κουπόνι
+        catalog_promotion:
+            scope:
+                for_products: Για προϊόντα
+                for_taxons: Για ταξινομικές μονάδες
+                for_variants: Για παραλλαγές
+            channels: Κανάλια
+        checkout:
+            addressing:
+                different_shipping_address: Να γίνει χρήση διαφορετικής διεύθυνσης για αποστολή;
+                different_billing_address: Να γίνει χρήση διαφορετικής διεύθυνσης για τιμολόγηση;
+            payment_method: Τρόπος Πληρωμής
+            shipping_method: Τρόπος Αποστολης
+        currency:
+            select: Επιλέξτε νόμισμα
+        promotion:
+            channels: Κανάλια
+        promotion_action:
+            add_product_configuration:
+                product: Προϊόν
+        promotion_coupon:
+            per_customer_usage_limit: Όριο χρήσης ανά πελάτη
+            reusable_from_cancelled_orders: Επαναχρησιμοποιήσιμο από ακυρωμένες παραγγελίες
+        group:
+            name: Ονομασία
+            roles: Ρόλοι
+        channel:
+            contact_phone_number: Τηλέφωνο επικοινωνίας
+            menu_taxon: Ταξινομική μονάδα μενού
+            shipping_address_in_checkout_required: Απαιτείται διεύθυνση στο ταμείο
+            shop_billing_data: Στοιχεία τιμολόγησης καταστήματος
+            billing_data:
+                tax_id: ΑΦΜ
+                city: Πόλη
+                company: Εταιρεία
+                country: Χώρα
+                postcode: Ταχ. Κώδικας
+                street: Οδός
+            contact_email: Email επικοινωνίας
+            countries: Χώρες
+            currencies: Νομίσματα
+            currency_base: Βασικό νόμισμα
+            account_verification_required: Απαιτείται η επαλήθευση του λογαριασμού;
+            hostname: Όνομα κεντρικού υπολογιστή
+            locale_default: Προεπιλεγμένες τοπικές ρυθμίσεις
+            locales: Τοπικές ρυθμίσεις
+            payment_methods: Τρόποι πληρωμής
+            shipping_methods: Τρόπος Αποστολης
+            skipping_shipping_step_allowed: Παράλειψη της αποστολής εάν μόνο μία μέθοδος αποστολής είναι διαθέσιμη;
+            skipping_payment_step_allowed: Παράλειψη της πληρωμής εάν μόνο μία μέθοδος πληρωμής είναι διαθέσιμη;
+            tax_calculation_strategy: Στρατηγική υπολογισμού φόρου
+            tax_zone_default: Προεπιλεγμένη φορολογική ζώνη
+            taxonomies: Ταξινομία
+            theme: Θέμα
+        image:
+            type: Τύπος
+            file: Εικόνα
+        locale:
+            code: Κωδικός
+            enabled: Ενεργοποιημένο
+        order_filter:
+            created_at_from: Δημιουργήθηκε μετά από
+            created_at_to: Δημιουργήθηκε πριν από
+            number: Αριθμός
+            total_from: Από
+            total_to: Προς
+            payment_state: Κατάσταση πληρωμής
+            channel: Όλα τα κανάλια
+        page:
+            body: Κυρίως άρθρο
+            id: ID
+            title: Τίτλος
+        product:
+            images: Εικόνες
+            restricted_zone: Απαγορευμένη ζώνη
+            short_description: Σύντομη περιγραφή
+            variant_selection_method: Μέθοδος επιλογής παραλλαγής
+            main_taxon: Κύρια ταξινομική μονάδα
+            channels: Κανάλια
+            enabled: Ενεργοποιημένο
+        product_filter:
+            name: Ονομασία
+            code: Κωδικός
+        product_variant:
+            tax_category: Φορολογική κατηγορία
+            shipping_category: Κατηγορία αποστολής
+        shipment_filter:
+            created_at_from: Από
+            created_at_to: Προς
+            number: Αριθμός Παραγγελίας
+            shipping_address: Αποστολή στο όνομα
+            channel: Όλα τα κανάλια
+        payment_filter:
+            created_at_from: Από
+            created_at_to: Προς
+            number: Αριθμός Παραγγελίας
+            billing_address: Όνομα χρέωσης
+            channel: Όλα τα κανάλια
+        shipping_method:
+            zone: Ζώνη
+        taxon:
+            code: Κωδικός
+            file: Επιλέξτε εικόνα
+            images: Εικόνες
+        taxonomy:
+            file: Επιλέξτε εικόνα
+        user:
+            billing_address: Διεύθυνση τιμολόγησης
+            enabled: Ενεργοποιημένο
+            first_name: Όνομα
+            groups: Ομάδες
+            roles: Ρόλοι
+            last_name: Επώνυμο
+            password: Κωδικός πρόσβασης
+            shipping_address: Διεύθυνση αποστολής
+            different_shipping_address: Να γίνει χρήση διαφορετικής διεύθυνσης για αποστολή;
+        user_filter:
+            query: Αναζήτηση
+        variant:
+            tracked_help: Αν είναι ενεργή αυτή η επιλογή, το Sylius θα παρακολουθεί το απόθεμα και θα σταματήσει να πουλά το προϊόν μόλις το απόθεμα φτάσει στο 0.
+            depth: Βάθος
+            height: Ύψος
+            on_hand: Τρέχων απόθεμα
+            price: Τιμή
+            sku: ΚΩΔΙΚΟΣ ΠΡΟΪΟΝΤΟΣ
+            shipping_required: Η αποστολή απαιτείται;
+            weight: Βάρος
+            width: Πλάτος
+        attribute:
+            product_attribute_value:
+                attribute: Χαρακτηριστικό
+                value: Αξία
+        guest:
+            email: Ηλεκτρονικό ταχυδρομείο
+        product_association:
+            product: Συσχετισμένο προϊόν
+            type: Τύπος συσχετισμού
+        product_association_type:
+            name: Ονομασία
+        promotion_filter:
+            products: Φίλτρο προϊόντων
+            taxons: Φίλτρο ταξινομικής μονάδας
+        promotion_rule:
+            customer_group:
+                group: Ομάδα πελατών
+            has_taxon:
+                taxons: Ταξινομικές μονάδες
+            product:
+                products: Προϊόντα
+            total_of_items_from_taxon:
+                taxon: Ταξινομική μονάδα
+                amount: Ποσό
+        payment_method:
+            channels: Κανάλια
+        product_attribute:
+            position: Θέση
+        zone:
+            scopes:
+                shipping: Αποστολή
+                tax: Φόρος
+    email:
+        admin_password_reset:
+            hello: Γεια σας
+            subject: Επαναφορά κωδικού διαχειριστή
+            reset_your_password: Επαναφορά του κωδικού σας
+            to_reset_your_password: Για να επαναφέρετε τον κωδικό σας - κάντε κλικ στον παρακάτω σύνδεσμο
+            to_reset_your_password_token: Για να επαναφέρετε τον κωδικό σας - χρησιμοποιήστε το παρακάτω token
+            token: Το token επαναφοράς κωδικού σας είναι
+        contact_request:
+            content: Περιεχόμενο
+            message_from: Μήνυμα από
+            subject: Αίτημα επικοινωνίας
+        order_confirmation:
+            has_been_successfully_placed: καταχωρήθηκε με επιτυχία.
+            subject: Επιβεβαίωση παραγγελίας
+            view_order_or_change_payment_method: Δείτε την παραγγελία ή αλλάξτε τρόπο πληρωμής
+            thank_you: Σας ευχαριστούμε για τις αγορές σας στο κατάστημά μας!
+            your_order_number: Ο αριθμός παραγγελίας σας
+        password_reset:
+            hello: Γεια σας
+            reset_your_password: Επαναφορά του κωδικού σας
+            subject: Επαναφορά κωδικού
+            to_reset_your_password: Για να επαναφέρετε τον κωδικό σας - κάντε κλικ στον παρακάτω σύνδεσμο
+            to_reset_your_password_token: Για να επαναφέρετε τον κωδικό σας - χρησιμοποιήστε το παρακάτω token
+            token: Το token επαναφοράς κωδικού σας είναι
+        shipment_confirmation:
+            has_been_sent_using: εστάλη μέσω
+            subject: Επιβεβαίωση αποστολής
+            thank_you_for_transaction: Σας ευχαριστούμε για μια επιτυχημένη συναλλαγή.
+            you_can_check_its_location_with_the_tracking_code: 'Μπορείτε να ελέγξετε την τοποθεσία της με τον κωδικό παρακολούθησης %tracking_code%.'
+            your_order_with_number: Η παραγγελία σας με αριθμό
+        user_registration:
+            start_shopping: Ξεκινήστε τις αγορές
+            subject: Εγγραφή χρήστη
+            welcome_to_our_store: Καλώς ήρθατε στο κατάστημά μας!
+            you_have_just_been_registered: Μόλις ολοκληρώσατε την εγγραφή σας. Σας ευχαριστούμε
+        verification_token:
+            hello: Γεια σας
+            message: 'Επαληθεύστε τον λογαριασμό σας με το token: '
+            subject: Επαλήθευση διεύθυνσης email
+            to_verify_your_email_address: Για να επαληθεύσετε τη διεύθυνση email σας - κάντε κλικ στον παρακάτω σύνδεσμο
+            verify_your_email_address: Επαληθεύστε τη διεύθυνση email σας
+        user:
+            account_verification:
+                greeting: Γεια σας
+                message: 'Επαληθεύστε τον λογαριασμό σας με το token: '
+                statement: Επαληθεύστε τη διεύθυνση email σας
+                strategy: Για να επαληθεύσετε τη διεύθυνση email σας - κάντε κλικ στον παρακάτω σύνδεσμο
+                subject: Επαλήθευση διεύθυνσης email
+    installer:
+        extensions:
+            header: επεκτάσεις
+            accelerator:
+                header: Επιταχυντής
+                help: Ενεργοποιήσετε το Zend OpCache (συνιστάται ιδιαίτερα).
+            apc: APC
+            ctype: Ctype
+            gd: GD
+            help: Εγκαταστήστε και ενεργοποιήστε την επέκταση %extension%.
+            iconv: Iconv
+            exif: Exif
+            fileinfo: Fileinfo
+            icu: ICU
+            intl: Intl
+            json_encode: JSON
+            mbstring: Συμβολοσειρά χαρακτήρων πολλών byte
+            off: false
+            on: true
+            pcre: PCRE
+            pdo: PDO
+            php_xml: PHP-XML
+            session_start: Συνεδρία
+            simplexml_import_dom: SimpleXML
+            token_get_all: Δημιουργός διακριτικών
+        filesystem:
+            header: σύστημα αρχείων
+            cache:
+                header: προσωρινή Μνήμη
+                help: "Για να ορίσεις τα δικαιώματα εκτέλεσε το παρακάτω: sudo setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX %path% && sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx %path%"
+            exists: υπάρχει
+            logs:
+                header: αρχεία καταγραφής
+                help: "Για να ορίσεις τα δικαιώματα εκτέλεσε το παρακάτω: sudo setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX %path% && sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx %path%"
+            not_exists: δεν υπάρχει
+            not_writable: χωρίς δυνατότητα εγγραφής
+            parameters:
+                header: parameters.yml
+                help: "Για να ορίσεις τα δικαιώματα εκτέλεσε το παρακάτω: sudo chmod a + w %path%"
+            vendors: προμηθευτές
+            writable: εγγράψιμο
+        settings:
+            detect_unicode_help: 'Ορίστε ''detect_unicode = Off'' στο αρχείο php.ini'
+            timezone_help: 'Ορίστε το ''date.timezone'' στο αρχείο php.ini (π.χ. date.timezone = "Europe/Amsterdam")'
+            version_help: Το Sylius προτείνει έκδοση PHP %recommended%, η τρέχουσα έκδοσή σας είναι %current%. Παρακαλώ αναβαθμίστε.
+            header: Έκδοση PHP και ρυθμίσεις
+            any: οποιαδήποτε
+            detect_unicode: detect_unicode
+            magic_quotes_gpc: magic_quotes_gpc
+            non_deprecated: μη παρωχημένο
+            off: false
+            on: true
+            register_globals: register_globals
+            session:
+                auto_start_help: 'Ορίστε ''session.auto_start = Off'' στο αρχείο php.ini'
+                auto_start: session.auto_start
+            short_open_tag: short_open_tag
+            timezone: ζώνη ώρας
+            timezone_deprecated:
+                header: Μη χρησιμοποιούμενη ζώνη ώρας
+                help: Η Ζώνη ώρας %timezone% δεν χρησιμοποιείται. Διορθώσετε το αρχείο php.ini σας (λίστα με μη χρησιμοποιούμενες ζώνες ώρας εδώ http://php.net/manual/en/timezones.others.php).
+            version: Έκδοση PHP
+            version_recommended: Προτεινόμενη έκδοση PHP
+    payum_gateway:
+        cash_on_delivery: Αντικαταβολή
+        offline: Εκτός σύνδεσης
+        paypal_express_checkout: Paypal Express Checkout
+    shipping_method_resolver:
+        by_zones_and_channel: Με ζώνες και κανάλι

@@ -1,0 +1,16 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
+sylius:
+    form:
+        tax_category:
+            name: Ονομασία
+            description: Περιγραφή
+        tax_rate:
+            category: Κατηγορία
+            name: Ονομασία
+            amount: Ποσό
+            included_in_price: Συμπεριλαμβάνεται στην τιμή;
+            calculator: Τρόπος υπολογισμού
+            end_date: Ημερομηνία λήξης
+            start_date: Ημερομηνία έναρξης

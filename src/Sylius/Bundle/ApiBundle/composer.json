@@ -1,0 +1,85 @@
+{
+    "name": "sylius/api-bundle",
+    "type": "symfony-bundle",
+    "description": "APIs management for Symfony projects.",
+    "keywords": [
+        "api",
+        "rest"
+    ],
+    "homepage": "https://sylius.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paweł Jędrzejewski",
+            "homepage": "https://pjedrzejewski.com"
+        },
+        {
+            "name": "Sylius project",
+            "homepage": "https://sylius.com"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/Sylius/Sylius/contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "doctrine/dbal": "^3.10 || ^4.4",
+        "api-platform/doctrine-orm": "^4.3 || ^5.0",
+        "api-platform/metadata": "^4.2.1 || ^5.0",
+        "api-platform/symfony": "^4.3.17 || ^5.0",
+        "lexik/jwt-authentication-bundle": "^3.2",
+        "sylius/core-bundle": "^2.0",
+        "sylius/payum-bundle": "^2.0",
+        "symfony/messenger": "^6.4 || ^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "ext-sqlite3": "*",
+        "matthiasnoback/symfony-config-test": "^6.2",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.3",
+        "nelmio/alice": "^3.13",
+        "phparkitect/phparkitect": "^1.0",
+        "phpunit/phpunit": "^12.5",
+        "sylius/resource-bundle": "^1.14.2",
+        "symfony/browser-kit": "^6.4 || ^7.4 || ^8.0",
+        "symfony/debug-bundle": "^6.4 || ^7.4 || ^8.0",
+        "symfony/dotenv": "^6.4 || ^7.4 || ^8.0",
+        "symfony/webpack-encore-bundle": "^2.4",
+        "theofidry/alice-data-fixtures": "^1.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.3-dev"
+        },
+        "symfony": {
+            "require": "^7.4"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sylius\\Bundle\\ApiBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sylius\\Bundle\\ApiBundle\\Application\\": "tests/Application/src/",
+            "Tests\\Sylius\\Bundle\\ApiBundle\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../*/*"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

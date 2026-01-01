@@ -1,0 +1,7 @@
+<div class="d-flex flex-column flex-lg-row justify-content-center gap-2 mt-4">
+    {% if app.user is not null %}
+        {% hook 'buttons#customer' %}
+    {% else %}
+        {% hook 'buttons#guest' %}
+    {% endif %}
+</div>

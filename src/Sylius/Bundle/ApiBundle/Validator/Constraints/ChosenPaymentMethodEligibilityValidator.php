@@ -1,0 +1,70 @@
+<?php
+
+/*
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Sylius\Bundle\ApiBundle\Validator\Constraints;
+
+use Sylius\Bundle\ApiBundle\Command\Account\ChangePaymentMethod;
+use Sylius\Bundle\ApiBundle\Command\Checkout\ChoosePaymentMethod;
+use Sylius\Bundle\ApiBundle\Command\Payment\AddPaymentRequest;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
+use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Webmozart\Assert\Assert;
+
+final class ChosenPaymentMethodEligibilityValidator extends ConstraintValidator
+{
+    /**
+     * @param PaymentRepositoryInterface<PaymentInterface> $paymentRepository
+     * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
+     */
+    public function __construct(
+        private readonly PaymentRepositoryInterface $paymentRepository,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly PaymentMethodsResolverInterface $paymentMethodsResolver,
+    ) {
+    }
+
+    public function validate(mixed $value, Constraint $constraint): void
+    {
+        Assert::isInstanceOfAny($value, [ChoosePaymentMethod::class, ChangePaymentMethod::class, AddPaymentRequest::class]);
+
+        /** @var ChosenPaymentMethodEligibility $constraint */
+        Assert::isInstanceOf($constraint, ChosenPaymentMethodEligibility::class);
+
+        /** @var PaymentMethodInterface|null $paymentMethod */
+        $paymentMethod = $this->paymentMethodRepository->findOneBy(['code' => $value->paymentMethodCode]);
+
+        if ($paymentMethod === null) {
+            $this->context->addViolation($constraint->notExistMessage, ['%code%' => $value->paymentMethodCode]);
+
+            return;
+        }
+
+        /** @var PaymentInterface|null $payment */
+        $payment = $this->paymentRepository->find($value->paymentId);
+
+        if (null === $payment) {
+            $this->context->addViolation($constraint->paymentNotFoundMessage);
+
+            return;
+        }
+
+        if (!in_array($paymentMethod, $this->paymentMethodsResolver->getSupportedMethods($payment), true)) {
+            $this->context->addViolation($constraint->notAvailableMessage, ['%name%' => $paymentMethod->getName()]);
+        }
+    }
+}

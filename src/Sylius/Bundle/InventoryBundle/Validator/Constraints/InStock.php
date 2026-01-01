@@ -1,0 +1,63 @@
+<?php
+
+/*
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Sylius\Bundle\InventoryBundle\Validator\Constraints;
+
+use Symfony\Component\Validator\Attribute\HasNamedArguments;
+use Symfony\Component\Validator\Constraint;
+
+#[\Attribute]
+final class InStock extends Constraint
+{
+    /**
+     * @param array<string, mixed>|null $options
+     */
+    #[HasNamedArguments]
+    public function __construct(
+        ?array $options = null,
+        public string $message = 'sylius.cart_item.not_available',
+        public string $shortMessage = 'sylius.cart_item.insufficient_stock',
+        public string $stockablePath = 'stockable',
+        public string $quantityPath = 'quantity',
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        if (\is_array($options)) {
+            trigger_deprecation(
+                'sylius/inventory-bundle',
+                '2.3',
+                'Passing an array of options to configure the "%s" constraint is deprecated and will be removed in Sylius 3.0, use named arguments instead.',
+                static::class,
+            );
+
+            $this->message = $options['message'] ?? $this->message;
+            $this->shortMessage = $options['shortMessage'] ?? $this->shortMessage;
+            $this->stockablePath = $options['stockablePath'] ?? $this->stockablePath;
+            $this->quantityPath = $options['quantityPath'] ?? $this->quantityPath;
+            $groups ??= $options['groups'] ?? null;
+            $payload ??= $options['payload'] ?? null;
+        }
+
+        parent::__construct(groups: $groups, payload: $payload);
+    }
+
+    public function validatedBy(): string
+    {
+        return 'sylius_in_stock';
+    }
+
+    public function getTargets(): array
+    {
+        return [self::PROPERTY_CONSTRAINT, self::CLASS_CONSTRAINT];
+    }
+}

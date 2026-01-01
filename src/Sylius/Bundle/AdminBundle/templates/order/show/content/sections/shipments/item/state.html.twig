@@ -1,0 +1,7 @@
+{% from '@SyliusAdmin/shipment/macro/state_label.html.twig' import label %}
+
+{% set shipment = hookable_metadata.context.shipment %}
+
+<td class="w-1">
+    {{ label(shipment.state) }}
+</td>

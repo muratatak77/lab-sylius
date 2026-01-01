@@ -1,0 +1,123 @@
+/*!
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+* {
+    --tblr-breadcrumb-item-active-color: var(--tblr-gray-500);
+    --tblr-breadcrumb-divider-color: var(--tblr-gray-300);
+    --tblr-breadcrumb-link-color: var(--tblr-body-color);
+    --tblr-blue-rgb: 17, 81, 141;
+    --tblr-green-rgb: 0, 97, 16;
+    --tblr-pagination-border-width: 0;
+    --sylius-primary-darken: #{$primary-darken};
+}
+
+@include color-mode(light) {
+    --tblr-body-color: #212529;
+    --tblr-code-color: #36393B;
+
+    body {
+        --bs-body-bg: #{$body-bg};
+        --bs-tertiary-bg: #{$body-bg};
+        --bs-body-color: #{$body-color};
+    }
+
+    [data-theme-switch="light"] {
+        display: none;
+    }
+}
+
+@include color-mode(dark) {
+    --tblr-body-bg: #{$dark-body-bg};
+    --tblr-body-bg-rgb: #{red($dark-body-bg)}, #{green($dark-body-bg)}, #{blue($dark-body-bg)};
+    --tblr-bg-surface: #{$dark-bg-surface};
+    --tblr-bg-surface-tertiary: #{$dark-body-bg};
+
+    .btn:where(:not([class*="btn-ghost"])) {
+        --tblr-btn-border-color: var(--tblr-border-color);
+    }
+
+    .btn-ghost-dark {
+        --tblr-btn-color: var(--tblr-body-color);
+        --tblr-btn-disabled-color: var(--tblr-body-color);
+    }
+
+    .form-control:where(:not(.is-invalid):not(.is-valid):not(:focus)),
+    .form-select:where(:not(.is-invalid):not(.is-valid):not(:focus)),
+    .form-check-input:where(:not(.is-invalid):not(.is-valid):not(:focus)),
+    .input-group-text {
+        border-color: var(--tblr-border-color);
+    }
+
+    .page-link.active,
+    .active > .page-link {
+        background-color: var(--tblr-bg-surface);
+        border-color: var(--tblr-border-color);
+    }
+
+    [data-theme-switch="dark"] {
+        display: none;
+    }
+
+    .btn-secondary {
+        --tblr-btn-bg: var(--tblr-bg-surface);
+        --tblr-btn-border-color: var(--tblr-border-color);
+        --tblr-btn-hover-bg: var(--tblr-border-color);
+        --tblr-btn-color: var(--tblr-body-color);
+        --tblr-btn-hover-color: var(--tblr-body-color);
+    }
+
+    .empty-img img {
+        filter: invert(0.9) hue-rotate(180deg);
+    }
+}
+
+a {
+    text-underline-offset: 0.25em;
+}
+
+a.link-reset {
+    text-decoration: none;
+}
+
+.btn-collapse {
+    &.collapsed {
+        .icon-chevron-right {
+            display: inline-flex;
+        }
+        .icon-chevron-down {
+            display: none;
+        }
+    }
+
+    &:not(.collapsed) {
+        .icon-chevron-right {
+            display: none;
+        }
+        .icon-chevron-down {
+            display: inline-flex;
+        }
+    }
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+
+    &:hover {
+        color: $primary
+    }
+}
+
+
+.switch-collapse {
+    display: none;
+}
+
+label:has(input:checked) ~ .switch-collapse {
+    display: block;
+}

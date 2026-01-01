@@ -1,0 +1,72 @@
+{
+    "@context": "\/api\/v2\/contexts\/@string@.startsWith('ConstraintViolation')",
+    "@id": "\/api\/v2\/validation_errors\/@string@",
+    "@type": "@string@.startsWith('ConstraintViolation')",
+    "hydra:title": "An error occurred",
+    "hydra:description": "@string@",
+    "status": 422,
+    "violations": [
+        {
+            "propertyPath": "rules[0].configuration[count]",
+            "message": "This value should be of type numeric.",
+            "code": "@string@"
+        },
+        {
+            "propertyPath": "rules[0].configuration[comparison_operator]",
+            "message": "Comparison operator is invalid. Available comparison operators are >=, ===, !==, <, <=, >.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[1].configuration[group_code]",
+            "message": "Customer group with code wrong does not exist.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[2].configuration[nth]",
+            "message": "This value should be of type numeric.",
+            "code": "@string@"
+        },
+        {
+            "propertyPath": "rules[3].configuration[country]",
+            "message": "Country with code wrong does not exist.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[4].configuration[taxons][0]",
+            "message": "Taxon with code wrong does not exist.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[5].configuration[WEB][amount]",
+            "message": "This value should be of type numeric.",
+            "code": "@string@"
+        },
+        {
+            "propertyPath": "rules[5].configuration[WEB][taxon]",
+            "message": "Taxon with code wrong does not exist.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[6].configuration[product_code]",
+            "message": "Product with code wrong does not exist.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[7].configuration[WEB]",
+            "message": "This field is missing.",
+            "code": "@string@"
+        },
+        {
+            "propertyPath": "rules[8].configuration[WEB][comparison_operator]",
+            "message": "Comparison operator is invalid. Available comparison operators are >=, ===, !==, <, <=, >.",
+            "code": null
+        },
+        {
+            "propertyPath": "rules[9].type",
+            "message": "Promotion rule type is invalid. Available rule types are customer_group, customer_group_per_channel, nth_order, nth_order_per_channel, shipping_country, shipping_country_per_channel, has_taxon, has_taxon_per_channel, total_of_items_from_taxon, contains_product, contains_product_per_channel, item_total, cart_quantity, cart_quantity_per_channel.",
+            "code": null
+        }
+    ],
+    "detail": "@string@",
+    "type": "\/validation_errors\/@string@"
+}

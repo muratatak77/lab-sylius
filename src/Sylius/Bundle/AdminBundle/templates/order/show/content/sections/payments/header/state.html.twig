@@ -1,0 +1,9 @@
+{% from '@SyliusAdmin/order/macro/order_payment_state_label.html.twig' import label %}
+
+{% set order = hookable_metadata.context.resource %}
+
+<div class="ms-auto">
+    <span class="ms-2">
+        {{ label(order.paymentState) }}
+    </span>
+</div>

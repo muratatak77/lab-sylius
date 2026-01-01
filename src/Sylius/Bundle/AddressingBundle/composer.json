@@ -1,0 +1,82 @@
+{
+    "name": "sylius/addressing-bundle",
+    "type": "symfony-bundle",
+    "description": "Addressing and zone management for Symfony applications.",
+    "keywords": [
+        "shop",
+        "ecommerce",
+        "address",
+        "addressing",
+        "zones"
+    ],
+    "homepage": "https://sylius.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paweł Jędrzejewski",
+            "homepage": "https://pjedrzejewski.com"
+        },
+        {
+            "name": "Sylius project",
+            "homepage": "https://sylius.com"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/Sylius/Sylius/contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "stof/doctrine-extensions-bundle": "^1.15",
+        "sylius/addressing": "^2.0",
+        "sylius/resource-bundle": "^1.14.2",
+        "symfony/framework-bundle": "^6.4.1 || ^7.4 || ^8.0",
+        "symfony/intl": "^6.4 || ^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "doctrine/data-fixtures": "^1.7 || ^2.2",
+        "doctrine/doctrine-bundle": "^2.18 || ^3.2",
+        "doctrine/orm": "^2.20 || ^3.6",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.3",
+        "phpunit/phpunit": "^12.5",
+        "symfony/browser-kit": "^6.4 || ^7.4 || ^8.0",
+        "symfony/dependency-injection": "^6.4.1 || ^7.4 || ^8.0",
+        "symfony/form": "^6.4.1 || ^7.4 || ^8.0",
+        "symfony/validator": "^6.4 || ^7.4 || ^8.0",
+        "theofidry/alice-data-fixtures": "^1.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.3-dev"
+        },
+        "symfony": {
+            "require": "^7.4"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sylius\\Bundle\\AddressingBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Sylius\\Bundle\\AddressingBundle\\": "tests/"
+        },
+        "classmap": [
+            "test/app/AppKernel.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../*/*"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

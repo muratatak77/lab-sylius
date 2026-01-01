@@ -1,0 +1,103 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
+sylius_promotion:
+    resources:
+        catalog_promotion:
+            classes:
+                model: Sylius\Component\Core\Model\CatalogPromotion
+        catalog_promotion_scope:
+            classes:
+                model: Sylius\Component\Core\Model\CatalogPromotionScope
+        promotion_subject:
+            classes:
+                model: "%sylius.model.order.class%"
+        promotion:
+            classes:
+                model: Sylius\Component\Core\Model\Promotion
+                repository: Sylius\Bundle\CoreBundle\Doctrine\ORM\PromotionRepository
+        promotion_coupon:
+            classes:
+                model: Sylius\Component\Core\Model\PromotionCoupon
+                repository: Sylius\Bundle\PromotionBundle\Doctrine\ORM\PromotionCouponRepository
+
+    catalog_promotion_action:
+        validation_groups:
+            fixed_discount:
+                - 'sylius'
+                - 'sylius_catalog_promotion_action_fixed_discount'
+
+    catalog_promotion_scope:
+        validation_groups:
+            for_products:
+                - 'sylius'
+                - 'sylius_catalog_promotion_scope_for_products'
+            for_variants:
+                - 'sylius'
+                - 'sylius_catalog_promotion_scope_for_variants'
+            for_taxons:
+                - 'sylius'
+                - 'sylius_catalog_promotion_scope_for_taxons'
+
+    promotion_action:
+        validation_groups:
+            order_percentage_discount:
+                - 'sylius'
+                - 'sylius_promotion_action_order_percentage_discount'
+            order_percentage_discount_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_action_order_percentage_discount_per_channel'
+            shipping_percentage_discount:
+                - 'sylius'
+                - 'sylius_promotion_action_shipping_percentage_discount'
+            shipping_percentage_discount_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_action_shipping_percentage_discount_per_channel'
+            order_fixed_discount:
+                - 'sylius'
+                - 'sylius_promotion_action_order_fixed_discount'
+            unit_fixed_discount:
+                - 'sylius'
+                - 'sylius_promotion_action_unit_fixed_discount'
+            unit_percentage_discount:
+                - 'sylius'
+                - 'sylius_promotion_action_unit_percentage_discount'
+
+    promotion_rule:
+        validation_groups:
+            customer_group:
+                - 'sylius'
+                - 'sylius_promotion_rule_customer_group'
+            customer_group_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_customer_group_per_channel'
+            nth_order:
+                - 'sylius'
+                - 'sylius_promotion_rule_nth_order'
+            nth_order_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_nth_order_per_channel'
+            shipping_country:
+                - 'sylius'
+                - 'sylius_promotion_rule_shipping_country'
+            shipping_country_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_shipping_country_per_channel'
+            has_taxon:
+                - 'sylius'
+                - 'sylius_promotion_rule_has_taxon'
+            has_taxon_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_has_taxon_per_channel'
+            total_of_items_from_taxon:
+                - 'sylius'
+                - 'sylius_promotion_rule_total_of_items_from_taxon'
+            contains_product:
+                - 'sylius'
+                - 'sylius_promotion_rule_contains_product'
+            contains_product_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_contains_product_per_channel'
+            cart_quantity_per_channel:
+                - 'sylius'
+                - 'sylius_promotion_rule_cart_quantity_per_channel'

@@ -1,0 +1,17 @@
+# This file is part of the Sylius package.
+# (c) Sylius Sp. z o.o.
+
+sylius:
+    form:
+        review:
+            author: Συντάκτης
+            comment: Σχόλιο
+            rating: Βαθμολογία
+            status:
+                label: Κατάσταση
+                new: Νέα
+                approved: Εγκεκριμένη
+                rejected: Απορριφθείσα
+            title: Τίτλος
+            header: Προσθήκη κριτικής
+            submit: Υποβολή

@@ -1,0 +1,122 @@
+<?php
+
+/*
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Sylius\Bundle\ApiBundle\CommandHandler\Payment;
+
+use Sylius\Bundle\ApiBundle\Command\Payment\AddPaymentRequest;
+use Sylius\Bundle\ApiBundle\Context\UserContextInterface;
+use Sylius\Bundle\ApiBundle\Exception\PaymentMethodNotFoundException;
+use Sylius\Bundle\ApiBundle\Exception\PaymentNotFoundException;
+use Sylius\Bundle\PaymentBundle\Provider\DefaultActionProviderInterface;
+use Sylius\Bundle\PaymentBundle\Provider\DefaultPayloadProviderInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
+use Sylius\Component\Payment\Factory\PaymentRequestFactoryInterface;
+use Sylius\Component\Payment\Model\PaymentRequestInterface;
+use Sylius\Component\Payment\Repository\PaymentRequestRepositoryInterface;
+use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+#[AsMessageHandler]
+final class AddPaymentRequestHandler
+{
+    /**
+     * @param PaymentMethodRepositoryInterface<PaymentMethodInterface> $paymentMethodRepository
+     * @param PaymentRepositoryInterface<PaymentInterface> $paymentRepository
+     * @param PaymentRequestFactoryInterface<PaymentRequestInterface> $paymentRequestFactory
+     * @param PaymentRequestRepositoryInterface<PaymentRequestInterface> $paymentRequestRepository
+     */
+    public function __construct(
+        private PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private PaymentRepositoryInterface $paymentRepository,
+        private PaymentRequestFactoryInterface $paymentRequestFactory,
+        private PaymentRequestRepositoryInterface $paymentRequestRepository,
+        private DefaultActionProviderInterface $defaultActionProvider,
+        private DefaultPayloadProviderInterface $defaultPayloadProvider,
+        private ?UserContextInterface $userContext = null,
+        private ?PaymentMethodsResolverInterface $paymentMethodsResolver = null,
+    ) {
+    }
+
+    public function __invoke(AddPaymentRequest $addPaymentRequest): PaymentRequestInterface
+    {
+        $paymentRequest = $this->createPaymentRequest($addPaymentRequest);
+
+        $this->paymentRequestRepository->add($paymentRequest);
+
+        return $paymentRequest;
+    }
+
+    private function createPaymentRequest(AddPaymentRequest $addPaymentRequest): PaymentRequestInterface
+    {
+        /** @var PaymentInterface|null $payment */
+        $payment = $this->paymentRepository->findOneByOrderToken($addPaymentRequest->paymentId, $addPaymentRequest->orderTokenValue);
+        if (null === $payment) {
+            throw new PaymentNotFoundException();
+        }
+
+        if ($this->userContext !== null && !$this->isAccessibleByCurrentUser($payment, $this->userContext->getUser())) {
+            throw new PaymentNotFoundException();
+        }
+
+        /** @var PaymentMethodInterface|null $paymentMethod */
+        $paymentMethod = $this->paymentMethodRepository->findOneBy(['code' => $addPaymentRequest->paymentMethodCode]);
+        if (null === $paymentMethod) {
+            throw new PaymentMethodNotFoundException();
+        }
+
+        if (
+            $this->paymentMethodsResolver !== null &&
+            !in_array($paymentMethod, $this->paymentMethodsResolver->getSupportedMethods($payment), true)
+        ) {
+            throw new PaymentMethodNotFoundException();
+        }
+
+        $paymentRequest = $this->paymentRequestFactory->create($payment, $paymentMethod);
+        $paymentRequest->setAction($addPaymentRequest->action ?? $this->defaultActionProvider->getAction($paymentRequest));
+        $paymentRequest->setPayload($addPaymentRequest->payload ?? $this->defaultPayloadProvider->getPayload($paymentRequest));
+
+        return $paymentRequest;
+    }
+
+    private function isAccessibleByCurrentUser(PaymentInterface $payment, ?UserInterface $user): bool
+    {
+        $order = $payment->getOrder();
+        if (!$order instanceof OrderInterface) {
+            return false;
+        }
+
+        if ($user instanceof ShopUserInterface) {
+            $customer = $user->getCustomer();
+
+            return $customer instanceof CustomerInterface && $order->getCustomer() === $customer;
+        }
+
+        return $this->isGuestOrder($order);
+    }
+
+    private function isGuestOrder(OrderInterface $order): bool
+    {
+        $customer = $order->getCustomer();
+
+        return null === $customer ||
+            null === $customer->getUser() ||
+            $order->isCreatedByGuest();
+    }
+}

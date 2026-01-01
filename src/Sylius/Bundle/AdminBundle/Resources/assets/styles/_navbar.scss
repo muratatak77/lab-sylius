@@ -1,0 +1,49 @@
+/*!
+ * This file is part of the Sylius package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+.sylius {
+    &.navbar-nav {
+        gap: 0.5rem;
+    }
+}
+
+.navbar input {
+    min-height: 44px;
+}
+
+.navbar-brand-image {
+    height: 3rem;
+    color: $logo-text-color;
+}
+
+@include color-mode(dark) {
+    .navbar-brand-image {
+        color: $white;
+    }
+}
+
+.navbar-collapse a.nav-link,
+.navbar-collapse a.dropdown-item {
+    transition: all .1s;
+
+    &:hover {
+        color: var(--tblr-primary) !important;
+        background: transparent;
+    }
+}
+.nav-button {
+    min-height: 44px;
+    min-width: 44px;
+}
+.navbar-collapse .nav-link:focus-visible {
+    outline: solid 2px var(--tblr-primary);
+}
+.navbar-plus-badge{
+    width: 50px;
+}
