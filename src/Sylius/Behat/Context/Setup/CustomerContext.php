@@ -114,6 +114,14 @@ final class CustomerContext implements Context
         $this->customerManager->flush();
     }
 
+    #[Given('/^(the customer) unsubscribed from the newsletter$/')]
+    public function theCustomerUnsubscribedFromTheNewsletter(CustomerInterface $customer): void
+    {
+        $customer->setSubscribedToNewsletter(false);
+
+        $this->customerManager->flush();
+    }
+
     #[Given('/^(this customer) verified their email$/')]
     public function theCustomerVerifiedTheirEmail(CustomerInterface $customer)
     {

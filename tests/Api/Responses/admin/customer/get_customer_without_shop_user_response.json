@@ -14,5 +14,6 @@
     "phoneNumber": null,
     "subscribedToNewsletter": false,
     "createdAt": "@date@",
-    "fullName": "tony Doe"
+    "fullName": "tony Doe",
+    "subscribedToNewsletterAt": null
 }

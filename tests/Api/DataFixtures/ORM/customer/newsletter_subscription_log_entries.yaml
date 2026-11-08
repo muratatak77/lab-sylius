@@ -1,0 +1,9 @@
+Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntry:
+    newsletter_subscription_log_entry_tony_subscribed:
+        __construct: ['@customer_tony', true, '<(new \DateTime("2025-01-10 10:00:00"))>']
+    newsletter_subscription_log_entry_tony_unsubscribed:
+        __construct: ['@customer_tony', false, '<(new \DateTime("2025-03-01 08:30:00"))>']
+    newsletter_subscription_log_entry_tony_resubscribed:
+        __construct: ['@customer_tony', true, '<(new \DateTime("2025-06-15 18:45:00"))>']
+    newsletter_subscription_log_entry_oliver_subscribed:
+        __construct: ['@customer_oliver', true, '<(new \DateTime("2025-02-01 12:00:00"))>']

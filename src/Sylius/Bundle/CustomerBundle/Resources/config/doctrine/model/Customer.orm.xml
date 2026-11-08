@@ -47,6 +47,7 @@
 
         <field name="phoneNumber" column="phone_number" type="string" nullable="true" />
         <field name="subscribedToNewsletter" column="subscribed_to_newsletter" type="boolean" />
+        <field name="subscribedToNewsletterAt" column="subscribed_to_newsletter_at" type="datetime" nullable="true" />
 
     </mapped-superclass>
 

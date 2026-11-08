@@ -1,3 +1,45 @@
+# UPGRADE FROM `2.3.2` TO `2.3.3`
+
+## Customers
+
+1. Changes to a customer's newsletter subscription are now recorded.
+
+   The new `sylius_customer.subscribed_to_newsletter_at` column holds the moment the customer last subscribed and is
+   cleared when they unsubscribe. Every change is also written to the new `sylius_newsletter_subscription_log_entry`
+   table, registered as the `sylius.newsletter_subscription_log_entry` resource
+   (`Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntry`).
+
+   Run the migrations:
+
+   ```bash
+   bin/console doctrine:migrations:migrate
+   ```
+
+   The migration backfills existing subscribers. Sylius has never stored the real opt-in date, so
+   `subscribed_to_newsletter_at` is set to the customer's `updated_at`, falling back to `created_at`. That is the
+   earliest moment at which the subscription is certain to have been active. A single "subscribed" log entry with the
+   same date is created for each of them. If you keep the real opt-in dates elsewhere, for example in a newsletter
+   provider, overwrite the backfilled values after migrating.
+
+2. The following methods have been added to `Sylius\Component\Customer\Model\CustomerInterface`:
+
+   ```php
+   public function getSubscribedToNewsletterAt(): ?\DateTimeInterface;
+   public function setSubscribedToNewsletterAt(?\DateTimeInterface $subscribedToNewsletterAt): void;
+   ```
+
+   If you have a custom class implementing this interface without extending `Sylius\Component\Customer\Model\Customer`,
+   you must add these methods.
+
+   `Customer::setSubscribedToNewsletter()` now updates `subscribedToNewsletterAt` when the value actually changes.
+   Calling it with the current value leaves the date untouched.
+
+3. The log entries are created by the new `sylius.entity_observer.customer.log_newsletter_subscription_change` entity
+   observer (`Sylius\Bundle\CoreBundle\Customer\EntityObserver\LogNewsletterSubscriptionChangeObserver`), on flush,
+   so subscriptions changed via the admin panel, the shop, the API or your own code are all recorded. Customers created
+   without a subscription, guests placing an order for example, get no entry. Bulk updates done with DQL or SQL bypass
+   the unit of work and are not logged.
+
 # UPGRADE FROM `2.3.1` TO `2.3.2`
 
 This is a **security release**. Updating is strongly recommended.

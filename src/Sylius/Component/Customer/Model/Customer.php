@@ -49,6 +49,8 @@ class Customer implements CustomerInterface, \Stringable
     /** @var bool */
     protected $subscribedToNewsletter = false;
 
+    protected ?\DateTimeInterface $subscribedToNewsletterAt = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -181,6 +183,20 @@ class Customer implements CustomerInterface, \Stringable
 
     public function setSubscribedToNewsletter(bool $subscribedToNewsletter): void
     {
+        if ($this->subscribedToNewsletter !== $subscribedToNewsletter) {
+            $this->subscribedToNewsletterAt = $subscribedToNewsletter ? new \DateTime() : null;
+        }
+
         $this->subscribedToNewsletter = $subscribedToNewsletter;
+    }
+
+    public function getSubscribedToNewsletterAt(): ?\DateTimeInterface
+    {
+        return $this->subscribedToNewsletterAt;
+    }
+
+    public function setSubscribedToNewsletterAt(?\DateTimeInterface $subscribedToNewsletterAt): void
+    {
+        $this->subscribedToNewsletterAt = $subscribedToNewsletterAt;
     }
 }

@@ -19,5 +19,6 @@
     "phoneNumber": "+48987654321",
     "subscribedToNewsletter": true,
     "createdAt": "@date@",
-    "fullName": "John Lim"
+    "fullName": "John Lim",
+    "subscribedToNewsletterAt": "@date@"
 }

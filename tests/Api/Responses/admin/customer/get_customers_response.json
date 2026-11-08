@@ -23,7 +23,8 @@
             "phoneNumber": null,
             "subscribedToNewsletter": false,
             "createdAt": "@date@",
-            "fullName": "oliver Doe"
+            "fullName": "oliver Doe",
+            "subscribedToNewsletterAt": null
         },
         {
             "@id": "\/api\/v2\/admin\/customers\/@string@",
@@ -45,7 +46,8 @@
             "phoneNumber": null,
             "subscribedToNewsletter": false,
             "createdAt": "@date@",
-            "fullName": "dave Doe"
+            "fullName": "dave Doe",
+            "subscribedToNewsletterAt": null
         },
         {
             "@id": "\/api\/v2\/admin\/customers\/@string@",
@@ -67,7 +69,8 @@
             "phoneNumber": null,
             "subscribedToNewsletter": false,
             "createdAt": "@date@",
-            "fullName": "tony Doe"
+            "fullName": "tony Doe",
+            "subscribedToNewsletterAt": null
         }
     ],
     "hydra:totalItems": 3,

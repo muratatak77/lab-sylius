@@ -1,0 +1,32 @@
+{
+    "@context": "\/api\/v2\/contexts\/NewsletterSubscriptionLogEntry",
+    "@id": "\/api\/v2\/admin\/customers\/@integer@\/newsletter-subscription-log-entries",
+    "@type": "hydra:Collection",
+    "hydra:member": [
+        {
+            "@id": "\/api\/v2\/admin\/newsletter-subscription-log-entries\/@integer@",
+            "@type": "NewsletterSubscriptionLogEntry",
+            "id": "@integer@",
+            "customer": "\/api\/v2\/admin\/customers\/@integer@",
+            "subscribed": true,
+            "loggedAt": "2025-06-15 18:45:00"
+        },
+        {
+            "@id": "\/api\/v2\/admin\/newsletter-subscription-log-entries\/@integer@",
+            "@type": "NewsletterSubscriptionLogEntry",
+            "id": "@integer@",
+            "customer": "\/api\/v2\/admin\/customers\/@integer@",
+            "subscribed": false,
+            "loggedAt": "2025-03-01 08:30:00"
+        },
+        {
+            "@id": "\/api\/v2\/admin\/newsletter-subscription-log-entries\/@integer@",
+            "@type": "NewsletterSubscriptionLogEntry",
+            "id": "@integer@",
+            "customer": "\/api\/v2\/admin\/customers\/@integer@",
+            "subscribed": true,
+            "loggedAt": "2025-01-10 10:00:00"
+        }
+    ],
+    "hydra:totalItems": 3
+}
