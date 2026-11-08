@@ -103,4 +103,62 @@ final class CustomerTest extends TestCase
         $this->customer->setGroup($group);
         self::assertSame($group, $this->customer->getGroup());
     }
+
+    public function testIsNotSubscribedToNewsletterByDefault(): void
+    {
+        self::assertFalse($this->customer->isSubscribedToNewsletter());
+        self::assertNull($this->customer->getSubscribedToNewsletterAt());
+    }
+
+    public function testSetsSubscribedToNewsletterAtWhenSubscribing(): void
+    {
+        $before = new \DateTimeImmutable();
+
+        $this->customer->setSubscribedToNewsletter(true);
+
+        self::assertTrue($this->customer->isSubscribedToNewsletter());
+        self::assertNotNull($this->customer->getSubscribedToNewsletterAt());
+        self::assertGreaterThanOrEqual($before->getTimestamp(), $this->customer->getSubscribedToNewsletterAt()->getTimestamp());
+    }
+
+    public function testKeepsSubscribedToNewsletterAtWhenSubscriptionDoesNotChange(): void
+    {
+        $subscribedAt = new \DateTime('2025-01-10 10:00:00');
+        $this->customer->setSubscribedToNewsletter(true);
+        $this->customer->setSubscribedToNewsletterAt($subscribedAt);
+
+        $this->customer->setSubscribedToNewsletter(true);
+
+        self::assertSame($subscribedAt, $this->customer->getSubscribedToNewsletterAt());
+    }
+
+    public function testKeepsSubscribedToNewsletterAtSetBeforeSubscribing(): void
+    {
+        $subscribedAt = new \DateTime('2025-01-10 10:00:00');
+        $this->customer->setSubscribedToNewsletterAt($subscribedAt);
+
+        $this->customer->setSubscribedToNewsletter(true);
+
+        self::assertTrue($this->customer->isSubscribedToNewsletter());
+        self::assertSame($subscribedAt, $this->customer->getSubscribedToNewsletterAt());
+    }
+
+    public function testClearsSubscribedToNewsletterAtWhenUnsubscribing(): void
+    {
+        $this->customer->setSubscribedToNewsletter(true);
+
+        $this->customer->setSubscribedToNewsletter(false);
+
+        self::assertFalse($this->customer->isSubscribedToNewsletter());
+        self::assertNull($this->customer->getSubscribedToNewsletterAt());
+    }
+
+    public function testSubscribedToNewsletterAtShouldBeMutable(): void
+    {
+        $subscribedAt = new \DateTime('2025-01-10 10:00:00');
+
+        $this->customer->setSubscribedToNewsletterAt($subscribedAt);
+
+        self::assertSame($subscribedAt, $this->customer->getSubscribedToNewsletterAt());
+    }
 }

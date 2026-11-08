@@ -19,6 +19,8 @@ final class Subresources
 
     public const ADDRESSES_LOG_ENTRIES = 'log-entries';
 
+    public const CUSTOMER_NEWSLETTER_SUBSCRIPTION_LOG_ENTRIES = 'newsletter-subscription-log-entries';
+
     private function __construct()
     {
     }

@@ -1,0 +1,24 @@
+{
+    "@context": "\/api\/v2\/contexts\/NewsletterSubscriptionLogEntry",
+    "@id": "\/api\/v2\/admin\/customers\/@integer@\/newsletter-subscription-log-entries",
+    "@type": "hydra:Collection",
+    "hydra:member": [
+        {
+            "@id": "\/api\/v2\/admin\/newsletter-subscription-log-entries\/@integer@",
+            "@type": "NewsletterSubscriptionLogEntry",
+            "id": "@integer@",
+            "customer": "\/api\/v2\/admin\/customers\/@integer@",
+            "subscribed": false,
+            "loggedAt": "@date@"
+        },
+        {
+            "@id": "\/api\/v2\/admin\/newsletter-subscription-log-entries\/@integer@",
+            "@type": "NewsletterSubscriptionLogEntry",
+            "id": "@integer@",
+            "customer": "\/api\/v2\/admin\/customers\/@integer@",
+            "subscribed": true,
+            "loggedAt": "@date@"
+        }
+    ],
+    "hydra:totalItems": 2
+}

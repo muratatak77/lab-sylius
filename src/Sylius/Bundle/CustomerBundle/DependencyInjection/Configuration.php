@@ -18,10 +18,13 @@ use Sylius\Bundle\CustomerBundle\Form\Type\CustomerGroupType;
 use Sylius\Bundle\CustomerBundle\Form\Type\CustomerType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
+use Sylius\Component\Customer\Factory\NewsletterSubscriptionLogEntryFactory;
 use Sylius\Component\Customer\Model\Customer;
 use Sylius\Component\Customer\Model\CustomerGroup;
 use Sylius\Component\Customer\Model\CustomerGroupInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntry;
+use Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntryInterface;
 use Sylius\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -81,6 +84,21 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('repository')->defaultValue(CustomerGroupRepository::class)->cannotBeEmpty()->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                         ->scalarNode('form')->defaultValue(CustomerGroupType::class)->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('newsletter_subscription_log_entry')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->arrayNode('classes')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('model')->defaultValue(NewsletterSubscriptionLogEntry::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(NewsletterSubscriptionLogEntryInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('repository')->cannotBeEmpty()->end()
+                                        ->scalarNode('factory')->defaultValue(NewsletterSubscriptionLogEntryFactory::class)->end()
                                     ->end()
                                 ->end()
                             ->end()

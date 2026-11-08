@@ -115,6 +115,11 @@
             <group>sylius:shop:customer:update</group>
         </attribute>
 
+        <attribute name="subscribedToNewsletterAt">
+            <group>sylius:admin:customer:index</group>
+            <group>sylius:admin:customer:show</group>
+        </attribute>
+
         <attribute name="createdAt">
             <group>sylius:admin:customer:index</group>
             <group>sylius:admin:customer:show</group>

@@ -20,6 +20,7 @@ use Behat\Step\When;
 use Sylius\Behat\Client\ApiClientInterface;
 use Sylius\Behat\Client\ResponseCheckerInterface;
 use Sylius\Behat\Context\Api\Resources;
+use Sylius\Behat\Context\Api\Subresources;
 use Sylius\Behat\Context\Ui\Admin\Helper\SecurePasswordTrait;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Addressing\Model\CountryInterface;
@@ -160,6 +161,16 @@ final class ManagingCustomersContext implements Context
     public function iViewDetailsOfTheCustomer(CustomerInterface $customer): void
     {
         $this->client->show(Resources::CUSTOMERS, (string) $customer->getId());
+    }
+
+    #[When('I browse the newsletter subscription history of the customer :customer')]
+    public function iBrowseTheNewsletterSubscriptionHistoryOfTheCustomer(CustomerInterface $customer): void
+    {
+        $this->client->subResourceIndex(
+            Resources::CUSTOMERS,
+            Subresources::CUSTOMER_NEWSLETTER_SUBSCRIPTION_LOG_ENTRIES,
+            (string) $customer->getId(),
+        );
     }
 
     #[When('I filter by group :groupName')]
@@ -527,6 +538,34 @@ final class ManagingCustomersContext implements Context
                 'subscribedToNewsletter',
             ),
         );
+    }
+
+    #[Then('I should see that this customer has been subscribed to the newsletter since a moment ago')]
+    public function iShouldSeeThatThisCustomerHasBeenSubscribedToTheNewsletterSinceAMomentAgo(): void
+    {
+        $subscribedToNewsletterAt = $this->responseChecker->getValue(
+            $this->client->getLastResponse(),
+            'subscribedToNewsletterAt',
+        );
+
+        Assert::notNull($subscribedToNewsletterAt);
+        Assert::lessThanEq(abs(time() - (new \DateTimeImmutable($subscribedToNewsletterAt))->getTimestamp()), 60);
+    }
+
+    #[Then('I should see :count entry in the newsletter subscription history')]
+    #[Then('I should see :count entries in the newsletter subscription history')]
+    public function iShouldSeeEntriesInTheNewsletterSubscriptionHistory(int $count): void
+    {
+        Assert::same($this->responseChecker->countCollectionItems($this->client->getLastResponse()), $count);
+    }
+
+    #[Then('/^the latest entry should show that the customer (subscribed to|unsubscribed from) the newsletter$/')]
+    public function theLatestEntryShouldShowThatTheCustomerChangedTheNewsletterSubscription(string $change): void
+    {
+        $entries = $this->responseChecker->getCollection($this->client->getLastResponse());
+
+        Assert::notEmpty($entries);
+        Assert::same($entries[0]['subscribed'], 'subscribed to' === $change);
     }
 
     #[Then('this customer should have :customerGroup as their group')]
