@@ -132,6 +132,17 @@ final class CustomerTest extends TestCase
         self::assertSame($subscribedAt, $this->customer->getSubscribedToNewsletterAt());
     }
 
+    public function testKeepsSubscribedToNewsletterAtSetBeforeSubscribing(): void
+    {
+        $subscribedAt = new \DateTime('2025-01-10 10:00:00');
+        $this->customer->setSubscribedToNewsletterAt($subscribedAt);
+
+        $this->customer->setSubscribedToNewsletter(true);
+
+        self::assertTrue($this->customer->isSubscribedToNewsletter());
+        self::assertSame($subscribedAt, $this->customer->getSubscribedToNewsletterAt());
+    }
+
     public function testClearsSubscribedToNewsletterAtWhenUnsubscribing(): void
     {
         $this->customer->setSubscribedToNewsletter(true);

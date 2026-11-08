@@ -73,8 +73,4 @@ interface CustomerInterface extends TimestampableInterface, ResourceInterface
     public function isSubscribedToNewsletter(): bool;
 
     public function setSubscribedToNewsletter(bool $subscribedToNewsletter): void;
-
-    public function getSubscribedToNewsletterAt(): ?\DateTimeInterface;
-
-    public function setSubscribedToNewsletterAt(?\DateTimeInterface $subscribedToNewsletterAt): void;
 }

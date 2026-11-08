@@ -22,6 +22,7 @@ use Sylius\Bundle\CoreBundle\Customer\EntityObserver\LogNewsletterSubscriptionCh
 use Sylius\Bundle\CoreBundle\PriceHistory\EntityObserver\EntityObserverInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Customer\Factory\NewsletterSubscriptionLogEntryFactoryInterface;
+use Sylius\Component\Customer\Model\Customer;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntryInterface;
 use Symfony\Component\Clock\MockClock;
@@ -101,6 +102,45 @@ final class LogNewsletterSubscriptionChangeObserverTest extends TestCase
     public function testPersistsLogEntryForChangedCustomer(): void
     {
         $customer = $this->createStub(CustomerInterface::class);
+        $logEntry = $this->createStub(NewsletterSubscriptionLogEntryInterface::class);
+
+        $this->logEntryFactory
+            ->expects($this->once())
+            ->method('createForCustomer')
+            ->with($customer, new \DateTime('2025-06-15 18:45:00'))
+            ->willReturn($logEntry)
+        ;
+        $this->entityManager->expects($this->once())->method('persist')->with($logEntry);
+
+        $this->observer->onChange($customer);
+    }
+
+    public function testLogsSubscriptionAtTheCustomerSubscribedToNewsletterAtDate(): void
+    {
+        $customer = new Customer();
+        $customer->setSubscribedToNewsletterAt(new \DateTime('2025-01-10 10:00:00'));
+        $customer->setSubscribedToNewsletter(true);
+        $logEntry = $this->createStub(NewsletterSubscriptionLogEntryInterface::class);
+
+        $this->logEntryFactory
+            ->expects($this->once())
+            ->method('createForCustomer')
+            ->with($customer, $this->callback(
+                static fn (\DateTimeInterface $loggedAt): bool => $loggedAt == new \DateTime('2025-01-10 10:00:00') &&
+                    $loggedAt !== $customer->getSubscribedToNewsletterAt(),
+            ))
+            ->willReturn($logEntry)
+        ;
+        $this->entityManager->expects($this->once())->method('persist')->with($logEntry);
+
+        $this->observer->onChange($customer);
+    }
+
+    public function testLogsUnsubscriptionAtTheClockDate(): void
+    {
+        $customer = new Customer();
+        $customer->setSubscribedToNewsletter(true);
+        $customer->setSubscribedToNewsletter(false);
         $logEntry = $this->createStub(NewsletterSubscriptionLogEntryInterface::class);
 
         $this->logEntryFactory

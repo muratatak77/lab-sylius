@@ -21,18 +21,18 @@
    same date is created for each of them. If you keep the real opt-in dates elsewhere, for example in a newsletter
    provider, overwrite the backfilled values after migrating.
 
-2. The following methods have been added to `Sylius\Component\Customer\Model\CustomerInterface`:
+2. The following methods have been added to `Sylius\Component\Customer\Model\Customer` without changing
+   `Sylius\Component\Customer\Model\CustomerInterface` to preserve backward compatibility. They will be added to the
+   interface in Sylius 3.0:
 
    ```php
    public function getSubscribedToNewsletterAt(): ?\DateTimeInterface;
    public function setSubscribedToNewsletterAt(?\DateTimeInterface $subscribedToNewsletterAt): void;
    ```
 
-   If you have a custom class implementing this interface without extending `Sylius\Component\Customer\Model\Customer`,
-   you must add these methods.
-
    `Customer::setSubscribedToNewsletter()` now updates `subscribedToNewsletterAt` when the value actually changes.
-   Calling it with the current value leaves the date untouched.
+   Calling it with the current value leaves the date untouched. When subscribing, a date set beforehand with
+   `setSubscribedToNewsletterAt()` (for example by an import) is kept; otherwise the current date is used.
 
 3. The log entries are created by the new `sylius.entity_observer.customer.log_newsletter_subscription_change` entity
    observer (`Sylius\Bundle\CoreBundle\Customer\EntityObserver\LogNewsletterSubscriptionChangeObserver`), on flush,

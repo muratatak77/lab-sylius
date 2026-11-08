@@ -184,7 +184,8 @@ class Customer implements CustomerInterface, \Stringable
     public function setSubscribedToNewsletter(bool $subscribedToNewsletter): void
     {
         if ($this->subscribedToNewsletter !== $subscribedToNewsletter) {
-            $this->subscribedToNewsletterAt = $subscribedToNewsletter ? new \DateTime() : null;
+            /* Keep a date set beforehand with setSubscribedToNewsletterAt(), e.g. by an import. */
+            $this->subscribedToNewsletterAt = $subscribedToNewsletter ? ($this->subscribedToNewsletterAt ?? new \DateTime()) : null;
         }
 
         $this->subscribedToNewsletter = $subscribedToNewsletter;
