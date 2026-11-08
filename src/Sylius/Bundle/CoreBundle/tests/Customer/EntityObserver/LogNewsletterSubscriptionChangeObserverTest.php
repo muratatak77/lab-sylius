@@ -115,6 +115,24 @@ final class LogNewsletterSubscriptionChangeObserverTest extends TestCase
         $this->observer->onChange($customer);
     }
 
+    public function testLogsSubscriptionAtTheClockDateForCustomerWithoutSubscribedToNewsletterAt(): void
+    {
+        $customer = $this->createConfiguredStub(CustomerInterface::class, ['isSubscribedToNewsletter' => true]);
+        $logEntry = $this->createStub(NewsletterSubscriptionLogEntryInterface::class);
+
+        $this->assertFalse(method_exists($customer, 'getSubscribedToNewsletterAt'));
+
+        $this->logEntryFactory
+            ->expects($this->once())
+            ->method('createForCustomer')
+            ->with($customer, new \DateTime('2025-06-15 18:45:00'))
+            ->willReturn($logEntry)
+        ;
+        $this->entityManager->expects($this->once())->method('persist')->with($logEntry);
+
+        $this->observer->onChange($customer);
+    }
+
     public function testLogsSubscriptionAtTheCustomerSubscribedToNewsletterAtDate(): void
     {
         $customer = new Customer();

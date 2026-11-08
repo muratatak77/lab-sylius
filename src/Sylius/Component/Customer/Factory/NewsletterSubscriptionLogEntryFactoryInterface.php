@@ -24,6 +24,9 @@ use Sylius\Resource\Factory\FactoryInterface;
  */
 interface NewsletterSubscriptionLogEntryFactoryInterface extends FactoryInterface
 {
+    /**
+     * @return T
+     */
     public function createForCustomer(
         CustomerInterface $customer,
         \DateTimeInterface $loggedAt,

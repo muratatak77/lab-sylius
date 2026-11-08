@@ -19,7 +19,8 @@
    `subscribed_to_newsletter_at` is set to the customer's `updated_at`, falling back to `created_at`. That is the
    earliest moment at which the subscription is certain to have been active. A single "subscribed" log entry with the
    same date is created for each of them. If you keep the real opt-in dates elsewhere, for example in a newsletter
-   provider, overwrite the backfilled values after migrating.
+   provider, overwrite the backfilled values after migrating, and update the `logged_at` of the matching "subscribed"
+   entries too: changing `subscribed_to_newsletter_at` alone does not touch the history.
 
 2. The following methods have been added to `Sylius\Component\Customer\Model\Customer` without changing
    `Sylius\Component\Customer\Model\CustomerInterface` to preserve backward compatibility. They will be added to the
@@ -33,6 +34,8 @@
    `Customer::setSubscribedToNewsletter()` now updates `subscribedToNewsletterAt` when the value actually changes.
    Calling it with the current value leaves the date untouched. When subscribing, a date set beforehand with
    `setSubscribedToNewsletterAt()` (for example by an import) is kept; otherwise the current date is used.
+   `setSubscribedToNewsletterAt()` does not check the subscription flag, so if you call it on an unsubscribed customer
+   and flush without subscribing them, that customer keeps a non-null date.
 
 3. The log entries are created by the new `sylius.entity_observer.customer.log_newsletter_subscription_change` entity
    observer (`Sylius\Bundle\CoreBundle\Customer\EntityObserver\LogNewsletterSubscriptionChangeObserver`), on flush,

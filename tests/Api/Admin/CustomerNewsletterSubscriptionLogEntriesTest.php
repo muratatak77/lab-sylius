@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\Tests\Api\Admin;
 
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Test;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Customer\Model\NewsletterSubscriptionLogEntry;
 use Sylius\Resource\Doctrine\Persistence\RepositoryInterface;
 use Sylius\Tests\Api\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,6 +62,41 @@ final class CustomerNewsletterSubscriptionLogEntriesTest extends JsonApiTestCase
             $this->client->getResponse(),
             'admin/customer/get_customer_newsletter_subscription_log_entries_response',
             Response::HTTP_OK,
+        );
+    }
+
+    #[Test]
+    public function it_returns_the_most_recently_recorded_entry_first_even_if_it_has_an_older_date(): void
+    {
+        $fixtures = $this->loadFixturesFromFiles([
+            'authentication/api_administrator.yaml',
+            'customer.yaml',
+            'customer/newsletter_subscription_log_entries.yaml',
+        ]);
+
+        /** @var CustomerInterface $customer */
+        $customer = $fixtures['customer_tony'];
+
+        /** @var EntityManagerInterface $entityManager */
+        $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var CustomerInterface $managedCustomer */
+        $managedCustomer = $entityManager->find(CustomerInterface::class, $customer->getId());
+        $entityManager->persist(new NewsletterSubscriptionLogEntry($managedCustomer, false, new \DateTime('2024-12-01 09:00:00')));
+        $entityManager->flush();
+
+        $this->client->request(
+            method: 'GET',
+            uri: sprintf('/api/v2/admin/customers/%d/newsletter-subscription-log-entries', $customer->getId()),
+            server: $this->headerBuilder()->withJsonLdAccept()->withAdminUserAuthorization('api@example.com')->build(),
+        );
+
+        $this->assertResponseCode($this->client->getResponse(), Response::HTTP_OK);
+
+        $members = json_decode((string) $this->client->getResponse()->getContent(), true, flags: \JSON_THROW_ON_ERROR)['hydra:member'];
+
+        $this->assertSame(
+            ['2024-12-01 09:00:00', '2025-06-15 18:45:00', '2025-03-01 08:30:00', '2025-01-10 10:00:00'],
+            array_column($members, 'loggedAt'),
         );
     }
 

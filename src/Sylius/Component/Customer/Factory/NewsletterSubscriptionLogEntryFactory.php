@@ -35,6 +35,8 @@ final class NewsletterSubscriptionLogEntryFactory implements NewsletterSubscript
     }
 
     /**
+     * @return T
+     *
      * @throws UnsupportedMethodException
      */
     public function createNew(): object
@@ -42,6 +44,9 @@ final class NewsletterSubscriptionLogEntryFactory implements NewsletterSubscript
         throw new UnsupportedMethodException('createNew');
     }
 
+    /**
+     * @return T
+     */
     public function createForCustomer(
         CustomerInterface $customer,
         \DateTimeInterface $loggedAt,

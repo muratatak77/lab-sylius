@@ -36,7 +36,10 @@ final readonly class LogNewsletterSubscriptionChangeObserver implements EntityOb
         Assert::isInstanceOf($entity, CustomerInterface::class);
 
         $loggedAt = null;
-        /* A subscription is logged at the customer's "subscribed since" date, so both values always match. */
+        /*
+         * A subscription is logged at the customer's "subscribed since" date, so both values match when the entry is
+         * written. Later changes to subscribedToNewsletterAt alone are not observed and do not update the entry.
+         */
         if ($entity->isSubscribedToNewsletter() && method_exists($entity, 'getSubscribedToNewsletterAt')) {
             $loggedAt = $entity->getSubscribedToNewsletterAt();
         }

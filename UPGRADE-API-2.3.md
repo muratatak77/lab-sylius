@@ -4,13 +4,14 @@
 
 The admin `Customer` resource exposes a new read-only `subscribedToNewsletterAt` property in the
 `sylius:admin:customer:index` and `sylius:admin:customer:show` serialization groups. It is `null` for customers who
-are not subscribed.
+are not subscribed, unless custom code set it with `Customer::setSubscribedToNewsletterAt()` without subscribing the
+customer.
 
 The history of subscription changes is available via a new endpoint:
 
 **`GET /api/v2/admin/customers/{id}/newsletter-subscription-log-entries`**
 
-Entries are returned newest first. Each one contains the customer IRI, the `subscribed` flag and the `loggedAt` date.
+Entries are returned in reverse insertion order, the most recently recorded change first. Each one contains the customer IRI, the `subscribed` flag and the `loggedAt` date.
 
 # UPGRADE FROM `2.3.1` TO `2.3.2`
 

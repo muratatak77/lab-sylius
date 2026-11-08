@@ -40,7 +40,6 @@
                 </normalizationContext>
                 <order>
                     <values>
-                        <value name="loggedAt">DESC</value>
                         <value name="id">DESC</value>
                     </values>
                 </order>
